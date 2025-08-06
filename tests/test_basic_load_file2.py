@@ -1,17 +1,14 @@
-# import zarr
-# import cf_units
 import iris
 import xarray as xr
 import ncdata
 import ncdata.iris_xarray
-### imports need about 285M
+### imports to here need about 285M
+import zarr
 
-# z = zarr.open('https://uor-aces-o.s3-ext.jc.rl.ac.uk/esmvaltool-zarr/pr_Amon_CNRM-ESM2-1_02Kpd-11_r1i1p2f2_gr_200601-220112.zarr3')
-# ds = z["pr"]
-# chunks = ds.chunks
-# nchunks = ds.nchunks
-# print(chunks)
-# print(nchunks)
+z = zarr.open('https://uor-aces-o.s3-ext.jc.rl.ac.uk/esmvaltool-zarr/cl_Amon_UKESM1-0-LL_ssp370SST-lowNTCF_r1i1p1f2.zarr3')
+ds = z["cl"]
+print("Zarr chunks", ds.chunks)
+print("Number of chunks", ds.nchunks)
 
 
 def load_small_file():
@@ -33,12 +30,15 @@ def load_small_file():
 
     conversion_func = ncdata.iris_xarray.cubes_from_xarray
     cubes = conversion_func(zarr_xr)
-    ### API2: 1GB memory (- 320MB = 680MB effective); 8.5s
+    ### API2: 2.4GB memory (- 320MB = 2,100MB effective); 8.5s
 
     assert isinstance(cubes, iris.cube.CubeList)
     assert len(cubes) == 2
     assert cubes[0].has_lazy_data()
-    # d = cubes[0].data
-    # print((cubes[0].data.size / 2**30) * 8)
+    print((cubes[0].data.size / 2**30) * 8)
+    print((cubes[1].data.size / 2**30) * 8)
 
 load_small_file()
+# cubes data sizes in GB:
+# 1.9260406494140625
+# 0.00020599365234375
