@@ -35,6 +35,8 @@ def load_small_file():
     assert isinstance(cubes, iris.cube.CubeList)
     assert len(cubes) == 2
     assert cubes[0].has_lazy_data()
+    print(cubes[0])
+    print(cubes[1])
     print((cubes[0].data.size / 2**30) * 8)
     print((cubes[1].data.size / 2**30) * 8)
 

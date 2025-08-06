@@ -1,17 +1,15 @@
-# import zarr
-# import cf_units
 import iris
 import xarray as xr
 import ncdata
 import ncdata.iris_xarray
 ### imports need about 285M
+import zarr
 
-# z = zarr.open('https://uor-aces-o.s3-ext.jc.rl.ac.uk/esmvaltool-zarr/pr_Amon_CNRM-ESM2-1_02Kpd-11_r1i1p2f2_gr_200601-220112.zarr3')
-# ds = z["pr"]
-# chunks = ds.chunks
-# nchunks = ds.nchunks
-# print(chunks)
-# print(nchunks)
+
+z = zarr.open('https://uor-aces-o.s3-ext.jc.rl.ac.uk/esmvaltool-zarr/pr_Amon_CNRM-ESM2-1_02Kpd-11_r1i1p2f2_gr_200601-220112.zarr3')
+ds = z["pr"]
+print("Zarr chunks", ds.chunks)
+print("Number of chunks", ds.nchunks)
 
 
 def load_small_file():
@@ -38,6 +36,6 @@ def load_small_file():
     assert len(cubes) == 1
     assert cubes[0].has_lazy_data()
     # d = cubes[0].data
-    # print((cubes[0].data.size / 2**30) * 8)
+    print((cubes[0].data.size / 2**30) * 8)
 
 load_small_file()
